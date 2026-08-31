@@ -1,0 +1,669 @@
+		<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Local Shop — Fresh Finds, Best Prices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E7;
+    --cream-soft:#EFE8D8;
+    --forest:#243D2F;
+    --forest-dark:#182A20;
+    --sage:#7C9473;
+    --gold:#C9A227;
+    --ink:#211F1A;
+    --white:#FFFFFF;
+    --line: rgba(33,31,26,0.12);
+    --radius: 4px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    color:var(--forest-dark);
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  button{font-family:'Inter', sans-serif; cursor:pointer;}
+  img{display:block; max-width:100%;}
+
+  /* ===== Header ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(246,241,231,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:1.35rem;
+    font-weight:700;
+    color:var(--forest-dark);
+  }
+  .brand span{color:var(--gold);}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:flex-end;
+    background: url('https://i.ibb.co/4ZHSSQfh/lucrezia-carnelos-w-Q9-Vu-P-Njr4-unsplash.jpg') center/cover no-repeat;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(24,42,32,0.15) 0%, rgba(24,42,32,0.75) 100%);
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    padding: 0 6vw 7vh;
+    max-width: 640px;
+  }
+  .hero-content .eyebrow{
+    color: var(--gold);
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    margin-bottom:14px;
+  }
+  .hero-content h1{
+    color:var(--white);
+    font-size:clamp(2.4rem, 6vw, 4rem);
+    line-height:1.05;
+    margin-bottom:22px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 30px;
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    font-weight:600;
+    font-size:0.98rem;
+    text-decoration:none;
+    transition: transform .15s ease, background .2s ease;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--forest-dark);
+  }
+  .btn-primary:hover{ background:#dab53a; }
+  .btn-outline{
+    background:transparent;
+    border-color:rgba(255,255,255,0.6);
+    color:var(--white);
+  }
+  .btn-outline:hover{ background:rgba(255,255,255,0.12); }
+
+  /* ===== Section shell ===== */
+  .section{ padding: 80px 6vw; }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    margin-bottom:38px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:22px;
+  }
+  .section-head h2{ font-size:clamp(1.7rem, 3vw, 2.3rem); }
+  .section-head p{ color:#5b5749; max-width:360px; margin:0; }
+
+  /* ===== Product carousel ===== */
+  .carousel{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom:14px;
+    margin: 0 -6vw;
+    padding-left:6vw;
+    padding-right:6vw;
+  }
+  .carousel::-webkit-scrollbar{ height:6px; }
+  .carousel::-webkit-scrollbar-thumb{ background:var(--sage); border-radius:10px; }
+
+  .card{
+    flex:0 0 auto;
+    width: min(78vw, 270px);
+    scroll-snap-align:start;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .card-img{
+    width:100%;
+    aspect-ratio: 1/1;
+    object-fit:cover;
+    background:var(--cream-soft);
+  }
+  .card-body{
+    padding:18px 18px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+  }
+  .card-body h3{
+    font-size:1.08rem;
+    font-weight:600;
+  }
+  .card-price{
+    font-family:'Fraunces', serif;
+    color:var(--gold);
+    font-size:1.2rem;
+    font-weight:600;
+  }
+  .card-add{
+    margin-top:auto;
+    background:var(--forest);
+    color:var(--white);
+    border:none;
+    padding:11px 16px;
+    border-radius:var(--radius);
+    font-weight:600;
+    font-size:0.92rem;
+    transition: background .2s ease;
+  }
+  .card-add:hover{ background:var(--forest-dark); }
+  .card-add.added{ background:var(--sage); }
+
+  /* ===== Info strip ===== */
+  .info-strip{
+    background:var(--forest);
+    color:var(--cream);
+    padding:50px 6vw;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:30px;
+  }
+  .info-strip div h3{ color:var(--white); font-size:1.1rem; margin-bottom:6px;}
+  .info-strip div p{ color:rgba(246,241,231,0.75); margin:0; font-size:0.94rem; }
+
+  /* ===== Footer ===== */
+  footer{
+    padding:34px 6vw;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:0.88rem;
+    color:#6b6656;
+    border-top:1px solid var(--line);
+  }
+
+  /* ===== Floating buttons ===== */
+  .float-btn{
+    position:fixed;
+    bottom:26px;
+    width:58px; height:58px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 20px rgba(24,42,32,0.28);
+    z-index:40;
+    border:none;
+    transition: transform .15s ease;
+  }
+  .float-btn:active{ transform:scale(0.94); }
+
+  .whatsapp-btn{
+    left:22px;
+    background:#25D366;
+  }
+  .cart-btn{
+    right:22px;
+    background:var(--forest);
+    color:var(--white);
+  }
+  .cart-count{
+    position:absolute;
+    top:-6px; right:-6px;
+    background:var(--gold);
+    color:var(--forest-dark);
+    font-size:0.72rem;
+    font-weight:700;
+    min-width:22px; height:22px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid var(--cream);
+  }
+
+  /* ===== Cart drawer ===== */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(24,42,32,0.45);
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+    z-index:50;
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+
+  .drawer{
+    position:fixed;
+    top:0; right:0;
+    height:100%;
+    width:min(420px, 92vw);
+    background:var(--cream);
+    z-index:51;
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .drawer.open{ transform:translateX(0); }
+
+  .drawer-head{
+    padding:22px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .drawer-head h2{ font-size:1.4rem; }
+  .drawer-close{
+    background:none; border:none; font-size:1.4rem; color:var(--ink);
+    line-height:1;
+  }
+
+  .drawer-items{
+    flex:1;
+    overflow-y:auto;
+    padding:16px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .drawer-empty{
+    color:#7a7563;
+    text-align:center;
+    margin-top:40px;
+    font-size:0.95rem;
+  }
+  .drawer-item{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .drawer-item img{
+    width:64px; height:64px;
+    object-fit:cover;
+    border-radius:var(--radius);
+    flex-shrink:0;
+  }
+  .drawer-item-info{ flex:1; min-width:0; }
+  .drawer-item-info h4{
+    margin:0 0 4px;
+    font-size:0.96rem;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+  }
+  .qty-controls{
+    display:flex; align-items:center; gap:10px;
+    margin-top:6px;
+  }
+  .qty-controls button{
+    width:26px; height:26px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--white);
+    font-size:1rem;
+    line-height:1;
+  }
+  .qty-controls span{ min-width:16px; text-align:center; font-weight:600; }
+  .item-price{
+    font-family:'Fraunces', serif;
+    color:var(--gold);
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .remove-btn{
+    background:none; border:none; color:#a24b3f; font-size:0.82rem;
+    text-decoration:underline; padding:0; margin-top:6px;
+  }
+
+  .drawer-footer{
+    border-top:1px solid var(--line);
+    padding:20px 24px 26px;
+    background:var(--cream-soft);
+  }
+  .subtotal-row{
+    display:flex; justify-content:space-between;
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    margin-bottom:16px;
+  }
+  .order-form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .order-form label{
+    font-size:0.82rem;
+    font-weight:600;
+    color:#4b4739;
+  }
+  .order-form input, .order-form textarea{
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    font-family:'Inter', sans-serif;
+    font-size:0.94rem;
+    background:var(--white);
+    width:100%;
+  }
+  .order-form input:focus, .order-form textarea:focus{
+    outline:2px solid var(--sage);
+    outline-offset:1px;
+  }
+  .send-btn{
+    width:100%;
+    background:var(--forest);
+    color:var(--white);
+    border:none;
+    padding:14px;
+    border-radius:var(--radius);
+    font-weight:700;
+    font-size:0.98rem;
+  }
+  .send-btn:hover{ background:var(--forest-dark); }
+  .send-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+  .form-msg{
+    font-size:0.85rem;
+    margin-top:10px;
+    text-align:center;
+  }
+  .form-msg.success{ color:#2f6b3a; }
+  .form-msg.error{ color:#a24b3f; }
+
+  @media (max-width:640px){
+    .section{ padding:56px 6vw; }
+    .section-head{ flex-direction:column; align-items:flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .drawer, .overlay, .btn, .card-add{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">The Local Shop<span>.</span></div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Fresh Finds, Best Prices</div>
+    <h1>Everyday groceries, picked with care.</h1>
+    <div style="display:flex; gap:14px; flex-wrap:wrap;">
+      <a href="#products" class="btn btn-primary">Shop Now</a>
+      <a href="#contact" class="btn btn-outline">Visit Us</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="section-head">
+    <h2>Today's picks</h2>
+    <p>A small selection of what's fresh on our shelves right now.</p>
+  </div>
+
+  <div class="carousel" id="carousel"></div>
+</section>
+
+<div class="info-strip">
+  <div>
+    <h3>Same-day pickup</h3>
+    <p>Order in the morning, collect it after work.</p>
+  </div>
+  <div>
+    <h3>Locally sourced</h3>
+    <p>We work with growers and makers nearby.</p>
+  </div>
+  <div>
+    <h3>Real people, real help</h3>
+    <p>Message us on WhatsApp for anything you need.</p>
+  </div>
+</div>
+
+<footer id="contact">
+  <div>© <span id="year"></span> The Local Shop</div>
+  <div>joym9047@gmail.com</div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a class="float-btn whatsapp-btn" href="https://wa.me/9123909847" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm0 18.2h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.22-1.46-1.37-1.7-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14-.01-.31-.01-.48-.01s-.43.06-.66.31c-.23.25-.86.85-.86 2.06s.89 2.39 1.01 2.56c.12.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.11-.23-.17-.48-.29z"/></svg>
+</a>
+
+<!-- Floating cart button -->
+<button class="float-btn cart-btn" id="cartBtn" aria-label="Open cart">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="9" cy="21" r="1.2" fill="white"/><circle cx="18" cy="21" r="1.2" fill="white"/><path d="M2.5 3h2l2.4 12.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6L20.5 7H6"/></svg>
+  <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- Cart drawer -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h2>Your basket</h2>
+    <button class="drawer-close" id="drawerClose" aria-label="Close cart">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-footer">
+    <div class="subtotal-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+    <form class="order-form" id="orderForm">
+      <label for="custName">Your name</label>
+      <input type="text" id="custName" required placeholder="e.g. Priya Shah" />
+      <label for="custPhone">Phone number</label>
+      <input type="tel" id="custPhone" required placeholder="e.g. 9123909847" />
+      <button type="submit" class="send-btn" id="sendBtn">Send Order</button>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+/* =========================================================
+   EmailJS SETUP — replace these three values with your own
+   from https://www.emailjs.com (free plan works fine).
+   1. Create an Email Service  -> copy the Service ID
+   2. Create an Email Template -> copy the Template ID
+      Template should use variables: {{customer_name}},
+      {{customer_phone}}, {{order_items}}, {{order_total}}
+   3. Account > General -> copy your Public Key
+   ========================================================= */
+  const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
+  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+  const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
+  const SHOP_OWNER_EMAIL    = "joym9047@gmail.com";
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // ---- Product data ----
+  const PRODUCTS = [
+    { id: 1, name: "Farmhouse Basket", price: 349, img: "https://i.ibb.co/Rk0kbNJW/0468c649ab6656523dfe762ed5e7330a.jpg" },
+    { id: 2, name: "Daily Essentials Pack", price: 279, img: "https://i.ibb.co/TMBv9HVW/15346be7e71d7366824e3c9b59651ef0.jpg" },
+    { id: 3, name: "Pantry Staples Box", price: 459, img: "https://i.ibb.co/b5tyZT0B/70748ffd66fdacd9fd39f068a323d68f.jpg" },
+    { id: 4, name: "Fresh Picks Bundle", price: 399, img: "https://i.ibb.co/fGP2mdtW/40b9ba00b5928c73594aa0fcf41033c7.jpg" },
+  ];
+
+  let cart = {}; // { id: qty }
+
+  // ---- Render product carousel ----
+  const carouselEl = document.getElementById('carousel');
+  PRODUCTS.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img class="card-img" src="${p.img}" alt="${p.name}" loading="lazy" />
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <div class="card-price">₹${p.price}</div>
+        <button class="card-add" data-id="${p.id}">Add to Cart</button>
+      </div>`;
+    carouselEl.appendChild(card);
+  });
+
+  carouselEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.card-add');
+    if (!btn) return;
+    const id = Number(btn.dataset.id);
+    cart[id] = (cart[id] || 0) + 1;
+    renderCart();
+    btn.textContent = "Added ✓";
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = "Add to Cart"; btn.classList.remove('added'); }, 900);
+  });
+
+  // ---- Cart drawer logic ----
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  const cartBtn = document.getElementById('cartBtn');
+  const drawerClose = document.getElementById('drawerClose');
+  const drawerItems = document.getElementById('drawerItems');
+  const cartCountEl = document.getElementById('cartCount');
+  const subtotalEl = document.getElementById('subtotal');
+  const formMsg = document.getElementById('formMsg');
+
+  function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+  cartBtn.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  function renderCart(){
+    const ids = Object.keys(cart).filter(id => cart[id] > 0);
+    const totalCount = ids.reduce((sum, id) => sum + cart[id], 0);
+    cartCountEl.textContent = totalCount;
+
+    if (ids.length === 0){
+      drawerItems.innerHTML = `<div class="drawer-empty">Your basket is empty.<br>Add something fresh from the shelf.</div>`;
+      subtotalEl.textContent = "₹0";
+      return;
+    }
+
+    let total = 0;
+    drawerItems.innerHTML = ids.map(id => {
+      const p = PRODUCTS.find(pr => pr.id === Number(id));
+      const qty = cart[id];
+      const lineTotal = p.price * qty;
+      total += lineTotal;
+      return `
+        <div class="drawer-item" data-id="${p.id}">
+          <img src="${p.img}" alt="${p.name}" />
+          <div class="drawer-item-info">
+            <h4>${p.name}</h4>
+            <div class="item-price">₹${lineTotal}</div>
+            <div class="qty-controls">
+              <button class="qty-minus" data-id="${p.id}">−</button>
+              <span>${qty}</span>
+              <button class="qty-plus" data-id="${p.id}">+</button>
+            </div>
+            <button class="remove-btn" data-id="${p.id}">Remove</button>
+          </div>
+        </div>`;
+    }).join('');
+    subtotalEl.textContent = "₹" + total;
+  }
+
+  drawerItems.addEventListener('click', (e) => {
+    const id = e.target.dataset.id;
+    if (!id) return;
+    if (e.target.classList.contains('qty-plus')) cart[id]++;
+    if (e.target.classList.contains('qty-minus')) cart[id] = Math.max(0, cart[id] - 1);
+    if (e.target.classList.contains('remove-btn')) delete cart[id];
+    renderCart();
+  });
+
+  // ---- Order form / EmailJS send ----
+  const orderForm = document.getElementById('orderForm');
+  const sendBtn = document.getElementById('sendBtn');
+
+  orderForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    formMsg.textContent = "";
+    formMsg.className = "form-msg";
+
+    const ids = Object.keys(cart).filter(id => cart[id] > 0);
+    if (ids.length === 0){
+      formMsg.textContent = "Add at least one item before sending your order.";
+      formMsg.className = "form-msg error";
+      return;
+    }
+
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+
+    let total = 0;
+    const itemLines = ids.map(id => {
+      const p = PRODUCTS.find(pr => pr.id === Number(id));
+      const qty = cart[id];
+      total += p.price * qty;
+      return `${p.name} x${qty} — ₹${p.price * qty}`;
+    });
+
+    const templateParams = {
+      customer_name: name,
+      customer_phone: phone,
+      order_items: itemLines.join("\n"),
+      order_total: "₹" + total,
+      to_email: SHOP_OWNER_EMAIL
+    };
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = "Sending...";
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        formMsg.textContent = "Order sent! We'll confirm with you shortly.";
+        formMsg.className = "form-msg success";
+        cart = {};
+        renderCart();
+        orderForm.reset();
+      })
+      .catch((err) => {
+        console.error(err);
+        formMsg.textContent = "Couldn't send the order. Please try again or WhatsApp us directly.";
+        formMsg.className = "form-msg error";
+      })
+      .finally(() => {
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Send Order";
+      });
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  renderCart();
+</script>
+</body>
+</html>
